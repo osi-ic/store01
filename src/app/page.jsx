@@ -1,19 +1,6 @@
 import Link from "next/link";
 
-const getProduct = async () => {
-  const req = await fetch("http://localhost:3000/api/product", {
-    cache: "no-store",
-  });
-
-  return req.json;
-};
-
 export default async function Home() {
-  const product = await getProduct();
-  console.log(product);
-
-  JSON.stringify(product);
-
   const products = [
     {
       id: 1,
