@@ -61,8 +61,8 @@ export default async function Home() {
         </button>
       </Link>
       <main className="flex flex-col gap-3">
-        {products.map(({ id, title, price, content }) => (
-          <article key={id} className="border p-4 rounded-md">
+        {products.map(({ title, price, content }, index) => (
+          <article key={index} className="border p-4 rounded-md">
             <h3 className="font-medium text-slate-800 text-lg">{title}</h3>
             <h2 className="font-semibold text-2xl">Rp{price}</h2>
             <p className="font-normal text-slate-500">{content}</p>
