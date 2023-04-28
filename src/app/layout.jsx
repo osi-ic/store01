@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="max-w-screen-md mx-auto my-12 flex flex-col gap-8">
+        <div className="max-w-screen-sm mx-auto my-12 px-4 flex flex-col gap-8">
           {children}
         </div>
       </body>

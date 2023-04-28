@@ -43,5 +43,6 @@ export const GET = async () => {
       content: "stonk nih",
     },
   ];
+
   return NextResponse.json({ products });
 };
