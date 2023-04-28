@@ -1,4 +1,4 @@
-export default function Item({ item: { index, title, content, price } }) {
+export default function Item({ item: { title, content, price }, index }) {
   return (
     <article key={index} className="border p-4 rounded-md">
       <h3 className="font-medium text-slate-800 text-lg">{title}</h3>
