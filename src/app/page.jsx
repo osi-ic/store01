@@ -1,18 +1,14 @@
 import Link from "next/link";
 
 const getProducts = async () => {
-  const res = await fetch("http://localhost:3000/api/products", {
+  const res = await fetch(`${process.env.BASE_URL}/api/product`, {
     cache: "no-store",
   });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
 
   return res.json();
 };
 
-export default async function Home() {
+export default async function Page() {
   const products = await getProducts();
 
   return (

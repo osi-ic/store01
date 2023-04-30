@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Home() {
+export default function Home({ params }) {
   return (
     <>
       <form className="flex flex-col gap-3 items-center">
