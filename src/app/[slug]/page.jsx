@@ -1,13 +1,24 @@
+import Link from "next/link";
+
+const getProduct = async () => {
+  const res = await fetch("http://localhost:3000/api/products", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
 export default function Page({ params }) {
   return (
     <>
       <main className="flex flex-col gap-4">
-        <span className="text-lg">
-          Kembali ke{" "}
-          <a href="/" className="underline decoration-sky-500">
-            Home
-          </a>
-        </span>
+        <Link href="/" className="text-lg">
+          Kembali ke Home
+        </Link>
         <div>
           <h1 className="text-2xl text-slate-900 font-medium">Tank Amerika</h1>
           <h2 className="text-4xl font-semibold">Rp45.000</h2>
