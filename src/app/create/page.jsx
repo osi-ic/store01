@@ -2,9 +2,28 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+const postProduct = async ({ slug, title, price, content }) => {
+  const res = await fetch(`${process.env.BASE_URL}/api/product`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title,
+      slug,
+      price: Number(price),
+      content,
+    }),
+  });
+
+  return res.json();
+};
 
 export default function Page() {
   const [field, setField] = useState({});
+  const router = useRouter();
 
   const setValue = (e) => {
     const name = e.target.name;
@@ -15,9 +34,10 @@ export default function Page() {
     });
   };
 
-  const doSubmit = (e) => {
+  const doSubmit = async (e) => {
     e.preventDefault();
-    console.log(field);
+    const product = await postProduct(field);
+    router.push("/");
   };
 
   return (
@@ -28,7 +48,7 @@ export default function Page() {
       <form method="post" className="flex flex-col gap-3 items-center">
         <input
           type="text"
-          name="tittle"
+          name="title"
           placeholder="Title"
           onChange={setValue}
           className="border px-4 py-2 w-full rounded"
