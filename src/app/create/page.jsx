@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const postProduct = async ({ slug, title, price, content }) => {
-  const res = await fetch(`${process.env.BASE_URL}/api/product`, {
+  const res = await fetch("https://store01.vercel.app/api/product", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
