@@ -24,5 +24,17 @@ export async function DELETE(request, { params }) {
     },
   });
 
-  return NextResponse.json(delProduct);
+  return NextResponse.json({ slug, delProduct });
+}
+
+export async function PUT(request, { params }) {
+  const slug = params.slug;
+  const body = await request.json();
+
+  const putProduct = await prisma.product.update({
+    where: { slug },
+    data: body,
+  });
+
+  return NextResponse.json({ slug, body, putProduct });
 }

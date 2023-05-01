@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const getOneProduct = async (slug) => {
-  const req = await fetch(`${process.env.BASE_URL}/api/product/${slug}`);
-  return req.json();
+  const res = await fetch(`${process.env.BASE_URL}/api/product/${slug}`);
+  return res.json();
 };
 
 export default async function Page({ params }) {
