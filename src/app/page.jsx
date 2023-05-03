@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const getProducts = async () => {
-  const res = await fetch(`${process.env.BASE_URL}/api/product`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product`, {
     cache: "no-store",
   });
 
@@ -13,14 +13,14 @@ export default async function Page() {
 
   return (
     <>
-      <Link href="/create">
+      <Link href="/product/create">
         <button className="px-5 py-3 rounded-md text-white bg-slate-800 inline-block">
           Create
         </button>
       </Link>
       <main className="flex flex-col gap-3">
-        {products.map(({ id, title, slug, price, content }, index) => (
-          <Link key={id} href={`/${slug}`}>
+        {products.map(({ id, title, slug, price, content }) => (
+          <Link key={id} href={`/product/${slug}`}>
             <article className="border p-4 rounded-md">
               <h3 className="font-medium text-slate-800 text-lg">{title}</h3>
               <h2 className="font-semibold text-2xl">Rp{price}</h2>
