@@ -14,7 +14,7 @@ export default function Error({ error, reset }) {
         className="px-5 py-3 rounded-md text-white bg-slate-800 inline-block"
         onClick={() => reset()}
       >
-        Cobalagi bang
+        Coba lagi bang
       </button>
     </div>
   );
