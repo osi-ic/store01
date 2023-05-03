@@ -18,6 +18,7 @@ export default async function Page() {
           Create
         </button>
       </Link>
+
       <main className="flex flex-col gap-3">
         {products.map(({ id, title, slug, price, content }) => (
           <Link key={id} href={`/product/${slug}`}>
