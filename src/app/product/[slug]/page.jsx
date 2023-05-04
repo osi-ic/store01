@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 
 const getOneProduct = async (slug) => {
   const req = await fetch(
@@ -11,7 +11,7 @@ const getOneProduct = async (slug) => {
   return req.json();
 };
 
-const delProduct = async (slug, router) => {
+const delProduct = async (slug) => {
   const req = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${slug}`,
     {
@@ -26,9 +26,11 @@ export default async function Page({ params }) {
   const router = useRouter();
   const data = await getOneProduct(slug);
 
+  if (data.slug == slug + "gakada") return redirect("/");
+
   const doDelete = async (e) => {
     e.preventDefault();
-    const product = await delProduct(slug, router);
+    const product = await delProduct(slug);
     router.push("/");
   };
 
