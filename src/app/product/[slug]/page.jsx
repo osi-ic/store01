@@ -8,6 +8,7 @@ const getOneProduct = async (slug) => {
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${slug}`
   );
 
+  if (!req.ok) return undefined;
   return req.json();
 };
 
@@ -18,6 +19,8 @@ const delProduct = async (slug) => {
       method: "DELETE",
     }
   );
+
+  if (!req.ok) return undefined;
   return req.json();
 };
 
@@ -26,7 +29,7 @@ export default async function Page({ params }) {
   const router = useRouter();
   const data = await getOneProduct(slug);
 
-  if (data.slug == slug + "gakada") return redirect("/");
+  if (!data) redirect("/");
 
   const doDelete = async (e) => {
     e.preventDefault();
