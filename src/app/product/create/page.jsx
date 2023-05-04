@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const postProduct = async ({ price, ...data }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product`, {
@@ -18,7 +18,6 @@ const postProduct = async ({ price, ...data }) => {
 
 export default function Page() {
   const [field, setField] = useState({});
-  const router = useRouter();
 
   const setValue = (e) => {
     const name = e.target.name;
@@ -33,7 +32,7 @@ export default function Page() {
     e.preventDefault();
     const product = await postProduct(field);
     if (!product) return;
-    router.push("/");
+    redirect("/");
   };
 
   return (

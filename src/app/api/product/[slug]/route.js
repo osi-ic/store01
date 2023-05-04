@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
@@ -11,7 +12,9 @@ export async function GET(request, { params }) {
     },
   });
 
-  if (!getOneProduct) return NextResponse.json({ slug: `${slug}gakada` });
+  console.log(getOneProduct, slug);
+
+  if (!getOneProduct) return notFound();
 
   return NextResponse.json(getOneProduct);
 }
