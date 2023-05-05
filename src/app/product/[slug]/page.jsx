@@ -25,7 +25,7 @@ const delProduct = async (slug) => {
 };
 
 export default async function Page({ params }) {
-  const slug = params.slug;
+  const { slug } = params;
   const router = useRouter();
   const data = await getOneProduct(slug);
 
@@ -59,7 +59,9 @@ export default async function Page({ params }) {
             </div>
 
             <div className="flex w-3/12 gap-2">
-              <button>Update</button>
+              <Link href={`/product/update/${slug}`}>
+                <button>Update</button>
+              </Link>
               <button onClick={doDelete} className="text-red-600">
                 Delete
               </button>
