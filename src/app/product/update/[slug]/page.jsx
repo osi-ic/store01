@@ -60,6 +60,9 @@ export default function Page({ params }) {
       <Link href="/" className="text-lg font-bold">
         Kembali ke Home
       </Link>
+      <Link href={`/product/${oldSlug}`} className="text-lg font-bold">
+        Kembali ke Product
+      </Link>
       <form method="post" className="flex flex-col gap-3 items-center">
         <input
           type="text"
