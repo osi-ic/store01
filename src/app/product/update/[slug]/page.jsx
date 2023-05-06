@@ -61,7 +61,7 @@ export default function Page({ params }) {
         Kembali ke Home
       </Link>
       <Link href={`/product/${oldSlug}`} className="text-lg font-bold">
-        Kembali ke Product
+        Kembali ke Detail
       </Link>
       <form method="post" className="flex flex-col gap-3 items-center">
         <input
