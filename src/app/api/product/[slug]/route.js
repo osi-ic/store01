@@ -12,10 +12,7 @@ export async function GET(request, { params }) {
     },
   });
 
-  console.log(getOneProduct, slug);
-
   if (!getOneProduct) return notFound();
-
   return NextResponse.json(getOneProduct);
 }
 
@@ -38,5 +35,6 @@ export async function PUT(request, { params }) {
     data: body,
   });
 
+  if (!getOneProduct) return notFound();
   return NextResponse.json({ putProduct });
 }

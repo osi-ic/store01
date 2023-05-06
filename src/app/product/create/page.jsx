@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const postProduct = async ({ price, ...data }) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product`, {
+  const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product`, {
     method: "POST",
     body: JSON.stringify({
       price: Number(price),
@@ -13,10 +13,12 @@ const postProduct = async ({ price, ...data }) => {
     }),
   });
 
-  return res.json();
+  if (!req.ok) return undefined;
+  return req.json();
 };
 
 export default function Page() {
+  const router = useRouter();
   const [field, setField] = useState({});
 
   const setValue = (e) => {
@@ -31,8 +33,8 @@ export default function Page() {
   const doSubmit = async (e) => {
     e.preventDefault();
     const product = await postProduct(field);
-    if (!product) return;
-    redirect("/");
+    router.refresh();
+    router.push("/");
   };
 
   return (
