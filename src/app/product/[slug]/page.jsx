@@ -34,6 +34,7 @@ export default async function Page({ params }) {
   const doDelete = async (e) => {
     e.preventDefault();
     const product = await delProduct(slug);
+    router.refresh();
     router.push("/");
   };
 

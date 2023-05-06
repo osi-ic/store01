@@ -33,6 +33,7 @@ export default function Page() {
   const doSubmit = async (e) => {
     e.preventDefault();
     const product = await postProduct(field);
+    router.refresh();
     router.push("/");
   };
 

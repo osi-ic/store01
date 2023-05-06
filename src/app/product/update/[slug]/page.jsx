@@ -1,25 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { redirect } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, redirect } from "next/navigation";
 
-const getOneProduct = async (slug) => {
+const putProduct = async (oldSlug, { price, ...data }) => {
   const req = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${slug}`
-  );
-
-  if (!req.ok) return undefined;
-  return req.json();
-};
-
-const putProduct = async (slug, data) => {
-  const req = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${slug}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${oldSlug}`,
     {
       method: "PUT",
       body: JSON.stringify({
-        slug,
+        price: Number(price),
         ...data,
       }),
     }
@@ -29,34 +20,39 @@ const putProduct = async (slug, data) => {
   return req.json();
 };
 
-export default async function Page({ params }) {
-  const slug = params?.slug;
-  const [fiield, setFiield] = useState({});
-  const data = await getOneProduct(slug);
+export default function Page({ params }) {
+  const router = useRouter();
+  const oldSlug = params?.slug;
+  const [field, setField] = useState({});
 
-  if (!data) redirect("/");
+  useEffect(() => {
+    getOneProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getOneProduct = async () => {
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${oldSlug}`
+    );
+    const { title, slug, price, content } = await req.json();
+    if (!title) return redirect("/");
+    setField({ title, slug, price, content });
+  };
 
   const setValue = (e) => {
     const name = e.target.name;
     const value = e.target.value;
 
-    setFiield({
-      ...fiield,
+    setField({
+      ...field,
       [name]: value,
     });
   };
 
   const doSubmit = async (e) => {
     e.preventDefault();
-
-    if (Object.keys(fiield).length == 0) {
-      setFiield(data);
-    }
-
-    console.log(fiield);
-
-    // const product = await putProduct(fiield);
-    // return redirect("/");
+    const product = await putProduct(oldSlug, field);
+    router.push("/");
   };
 
   return (
@@ -69,14 +65,14 @@ export default async function Page({ params }) {
           type="text"
           name="title"
           placeholder="Title"
-          value={fiield.title}
+          value={field.title}
           onChange={setValue}
           className="border px-4 py-2 w-full rounded"
         />
         <input
           type="text"
           name="slug"
-          value={fiield.slug}
+          value={field.slug}
           placeholder="Slug"
           onChange={setValue}
           className="border px-4 py-2 w-full rounded"
@@ -84,7 +80,7 @@ export default async function Page({ params }) {
         <input
           type="text"
           name="price"
-          value={fiield.price}
+          value={field.price}
           placeholder="Price"
           onChange={setValue}
           className="border px-4 py-2 w-full rounded"
@@ -92,7 +88,7 @@ export default async function Page({ params }) {
         <input
           type="text"
           name="content"
-          value={fiield.content}
+          value={field.content}
           placeholder="Content"
           onChange={setValue}
           className="border px-4 py-2 w-full rounded"
